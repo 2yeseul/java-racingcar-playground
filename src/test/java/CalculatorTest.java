@@ -2,6 +2,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 public class CalculatorTest {
     @Test
@@ -11,7 +12,7 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         Integer expected = calculator.getSum(input);
 
-        assertThat(6).isEqualTo(expected);
+        assertThat(expected).isEqualTo(6);
     }
 
     @Test
@@ -21,6 +22,14 @@ public class CalculatorTest {
         Calculator calculator = new Calculator();
         Integer expected = calculator.getSum(input);
 
-        assertThat(6).isEqualTo(expected);
+        assertThat(expected).isEqualTo(6);
+    }
+
+    @Test
+    @DisplayName("숫자 이외의 값 또는 음수를 전달하는 경우 RuntimeException 을 반환")
+    void throwErrorWhenInputContainsNegativeOrNotNumber() {
+        String input = "a:b:c";
+        Calculator calculator = new Calculator();
+        assertThatThrownBy(() -> calculator.getSum(input)).isInstanceOf(RuntimeException.class);
     }
 }

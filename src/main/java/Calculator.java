@@ -28,8 +28,21 @@ public class Calculator {
   }
 
   private Integer getSumOfItems(String[] items) {
-    Optional<Integer> results = Arrays.stream(items).map(Integer::parseInt).reduce(Integer::sum);
+    Optional<Integer> results = Arrays.stream(items).filter(this::validateItem)
+        .map(Integer::parseInt).reduce(Integer::sum);
 
     return results.orElse(0);
+  }
+
+  private boolean validateItem(String item) {
+    if (Integer.parseInt(item) < 0) {
+      throw new RuntimeException();
+    }
+    try {
+      int number = Integer.parseInt(item);
+    } catch (NumberFormatException e) {
+      throw new RuntimeException();
+    }
+    return true;
   }
 }
