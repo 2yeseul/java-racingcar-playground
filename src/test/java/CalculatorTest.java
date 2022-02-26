@@ -9,8 +9,18 @@ public class CalculatorTest {
     void getSumOfSplitString () {
         String input = "1,2:3";
         Calculator calculator = new Calculator();
-        int result = calculator.getSum(input);
+        Integer expected = calculator.getSum(input);
 
-        assertThat(6).isEqualTo(result);
+        assertThat(6).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName("기본 구분자 외에 커스텀 구분자를 지정할 수 있다.")
+    void assignCustomSeparator() {
+        String input = "//;\n1;2;3";
+        Calculator calculator = new Calculator();
+        Integer expected = calculator.getSum(input);
+
+        assertThat(6).isEqualTo(expected);
     }
 }
